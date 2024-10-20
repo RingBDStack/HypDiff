@@ -3,8 +3,8 @@ import argparse
 from utils.train_utils import add_flags_from_config
 
 config_args = {
-    'training_config': {
-        'lr': (0.001, 'learning rate'),
+    'training_lp_config': {
+        'lr': (0.0001, 'learning rate'),
         'dropout': (0.2, 'dropout probability'),
         'cuda': (0, 'which cuda device to use (-1 for cpu training)'),
         'epochs': (10, 'maximum number of epochs to train for'),
@@ -42,7 +42,7 @@ config_args = {
         'local-agg': (0, 'whether to local tangent space aggregation or not')
     },
     'data_config': {
-        'dataset': ('CL100', 'which dataset to use'),
+        'dataset': ('MUTAG', 'which dataset to use'),
         'val-prop': (0.05, 'proportion of validation edges for link prediction'),
         'test-prop': (0.1, 'proportion of test edges for link prediction'),
         'use-feats': (0, 'whether to use node features or not'),
@@ -54,6 +54,34 @@ config_args = {
         'type':('train','which type to choose, you can select train or test'), 
         'diff_epoc':(1, 'maximum number of epochs to train for'),
         'taskselect':('graphtask', '[lptask, graphtask]')
+    },
+    'training_diffusion_config': {
+        'target': ('pred_noise', 'at every Vis_step, the plots will be updated'),
+        'restrict': (False, 'whether use the geometric contraints'),
+        'lr_diff': (0.0001, 'model learning rate'),
+        'epoch_diff': (5000, 'maximum number of epochs to train for'),
+        'epoch_load': (5000, 'maximum number of epochs to train for')
+    },
+    'training_hvae_config': {
+        'Vis_step': (1000, 'at every Vis_step, the plots will be updated'),
+        'redraw': (False, 'either update the log plot each step'),
+        'epoch_number': (5000, 'maximum number of epochs to train for'),
+        'graphEmDim': (64, 'the dimention of graph Embeding LAyer; z'),
+        'graph_save_path': (None, 'the direc to save generated synthatic graphs'),
+        'use_feature': (True, 'either use features or identity matrix'),
+        'PATH': ('model', 'a string which determine the path in wich model will be saved'),
+        'decoder': ('FC', 'the decoder type, FC is only option in this rep'),
+        'encoder_type': ("HAvePool", 'the encoder: only option in this rep is Ave'),
+        'batchSize': (200, 'the size of each batch; the number of graphs is the mini batch'),
+        'UseGPU': (True, 'either use GPU or not if availabel'),
+        'model_vae': ('graphVAE', 'only option is graphVAE'),
+        'device': ("cuda:0", 'Which device should be used'),
+        'task': ("graphGeneration", 'only option in this rep is graphGeneration'),
+        'bfsOrdering': (True, 'use bfs for graph permutations'),
+        'directed': (True, 'is the dataset directed?!'),
+        'beta': (None, 'beta coefiicieny'),
+        'plot_testGraphs': (True, 'shall the test set be printed'),
+        'ideal_Evalaution': (False, 'if you want to comapre the 50%50 subset of dataset comparision?!')
     }
 }
 
